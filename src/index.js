@@ -23,7 +23,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
      <> 
-		<AppUseData login = {"ChrisVdBossche"}/>
+		<AppUseData login = {"chrisvdbossche"}/>
 		{/* <AppOne />
     	<AppUseState />
     	<AppState authorized = {false}/>
