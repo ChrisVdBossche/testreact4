@@ -7,7 +7,7 @@ function AppUseData({login}) {
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [theError, setTheError] = useState(null);
-//	const [isError, setIsError] = useState(false);
+	const [isError, setIsError] = useState(false);
 
 	// function setTheError(error) {
 	// 	console.log("ERROR=",error);
@@ -16,7 +16,7 @@ function AppUseData({login}) {
 	useEffect(()=> {
 		if(!login) return;
 		setLoading(true);
-//		setIsError(false);
+		setIsError(false);
 		fetch(`https://api.github.com/users/${login}`)
 // 		fetch(`https://dog.ceo/api/breeds/image/random`)
 			// .then(response => {
@@ -26,15 +26,18 @@ function AppUseData({login}) {
 			.then(response => response.json())
 			.then(setData)
 	        .then(setLoading(false)) 
-			// .catch(error => {
-			// 	console.error('FOUT:', error,".");
-			// 	return error;
-		  	// })
-			.catch(setTheError);
+			.catch(error => {
+				setIsError(true);
+				setTheError(error.message);
+				console.error('FOUT:', error.message,"===");
+				return error;
+		  	})
+			//.catch(setTheError);
 	},[login]);
 
 	if(loading)		return <h3>Loading...</h3>;
-	if(theError)	return <h3>We have error: {JSON.stringify(theError, null, '\t')}</h3>;
+	if(isError)		return <h3>We have an error: {theError}</h3>;
+//	if(theError)	return <h3>We have error: {JSON.stringify(theError, null, '\t')}</h3>;
 	if(data) {
 		// if(data.status==="success") {
 		// 	return <div>
